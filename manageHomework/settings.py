@@ -13,6 +13,11 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import os
 from django.core.management.utils import get_random_secret_key
+import os
+import environ
+from decouple import config
+from dj_database_url import parse as dburl
+
 SECRET_KEY = get_random_secret_key()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -46,6 +51,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -53,7 +59,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
+default_dburl = "sqlite://"+str(BASE_DIR/"db.sqlite3")
 ROOT_URLCONF = 'manageHomework.urls'
 
 TEMPLATES = [
@@ -79,10 +85,7 @@ WSGI_APPLICATION = 'manageHomework.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgreql_psycopg2',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': config("DATABASE_URL",default = default_dburl,cast=dburl)
 }
 
 
