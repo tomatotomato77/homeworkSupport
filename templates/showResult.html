@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+
+</head>
+<body>
+    <form method="post" action="">
+        {% csrf_token %}
+        <table>
+            {{form.as_table}}
+            <tr><td coispan='2'><input type="submit" value="show" /></td></tr>
+        </table>
+    </form>
+    <table>
+        <thead><tr><td>grade</td><td>class</td><td>number</td><td>name</td><td>homework count</td><td>show</td></tr></thead>
+        {% for result in results%}
+        <tr><td>{{result.student.grade}}</td><td>{{result.student.class_num}}</td><td>{{result.student.number}}</td><td>{{result.student.name}}</td><td>{{result.files_count}}</td>
+            <td>
+            {% for file in result.files%}
+            <a href="{{file.url}}">{{file.name}}</a>
+            {%endfor%}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>histry</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.0/js/jquery.tablesorter.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.0/css/theme.default.min.css">
+    <style>
+        #fav_table th {
+            background-color:blue;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $('#fav_table').tablesorter();
+        })
+    </script>
+</head>
+<body>
+    <div class="card-body">
+        <table id="fav-table" class="table table-bordered">
+            <thead>
+                <tr><th>grade</th><th>class</th><th>number</th><th>name</th><th>date</th><th>download</th></tr>
+            </thead>
+            {% csrf_token %}
+            {% for homework in homeworks %}
+            <tr><th>{{homework.student.year}}</th><th>{{homework.student.class_num}}</th><th>{{homework.student.number}}</th><th>{{homework.student.name}}</th><th>{{homework.now_date}}</th><th><a href ="{{homework.file.url}}"download="{{ homework.file.name }}">{{homework.file}}</a></th></tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>
