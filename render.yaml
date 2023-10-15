@@ -7,7 +7,7 @@ databases:
 
 services:
   - type: web
-    name: django_render
+    name: manage_homework
     env: python
     region: singapore
     buildCommand: './build.sh'
