@@ -12,18 +12,15 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
-from django.core.management.utils import get_random_secret_key
-import os
 import environ
 from decouple import config
 from dj_database_url import parse as dburl
 
-SECRET_KEY = get_random_secret_key()
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+env = environ.Env()
+env.read_env(os.path.join(BASE_DIR,".env"))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
@@ -124,6 +121,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT=str(BASE_DIR/"staticfiles")
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 MEDIA_ROOT = os.path.join(BASE_DIR,'media/')
 
 # Default primary key field type
@@ -132,6 +131,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media/')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
+SUPERUSE_NAME = env("SUPERUSER_NAME")
+SUPERUSER_EMAIL = env("SUPERUSE_EMAIL")
+SUPERUSE_PASSWORD = env("SUPERUSE_PASSWORD")
 try:
     from .local_settings import *
 except:
