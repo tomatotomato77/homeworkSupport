@@ -56,8 +56,10 @@ class resultView(generic.TemplateView):
         if not form.is_valid():
             return ctx
         completed_students = Homework.objects.all().filter(now_date = form.cleaned_data["date"]).select_related('student').all()
-        completed_students = list(filter(self._filter(form.cleaned_data.get("class_num"),form.cleaned_data.get("grade")),completed_students))
-        students_all = sorted(Student.objects.all(),key=lambda x:StudentsSort(x.grade,x.class_num,x.number))
+        filter_func = self.homework_filter(form.cleaned_data.get("class_num"),form.cleaned_data.get("grade"))
+        completed_students = list(filter(filter_func,completed_students))
+        filter_func = self.student_filter(form.cleaned_data.get("class_num"),form.cleaned_data.get("grade"))
+        students_all = sorted(list(filter(filter_func,Student.objects.all())),key=lambda x:StudentsSort(x.grade,x.class_num,x.number))
         for student in students_all:
             filterd_homework = list(filter(lambda x:x.student==student,completed_students))
             files = list(map(lambda x:x.file,filterd_homework))
@@ -66,7 +68,7 @@ class resultView(generic.TemplateView):
     def post(self, request, *args, **kwargs):
         ctx = self.get_context_data(**kwargs)
         return self.render_to_response(ctx)
-    def _filter(self,class_num,grade):
+    def homework_filter(self,class_num,grade):
         if class_num is None and grade is None:
             return lambda x:True
         elif class_num is None:
@@ -75,6 +77,16 @@ class resultView(generic.TemplateView):
             return lambda x:x.student.class_num == class_num
         else:
             return lambda x:x.student.grade==grade and x.student.class_num == class_num
+    def student_filter(self,class_num,grade):
+        if class_num is None and grade is None:
+            return lambda x:True
+        elif class_num is None:
+            return lambda x:x.grade == grade
+        elif grade is None:
+            return lambda x:x.class_num == class_num
+        else:
+            return lambda x:x.grade==grade and x.class_num == class_num
+
 class Result():
     def __init__(self,student,files):
         self.student = student
