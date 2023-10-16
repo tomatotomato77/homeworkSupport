@@ -18,7 +18,7 @@ from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
 urlpatterns = [
-    path("sendhomework/",include("sendHomework.urls")),
+    path("",include("sendHomework.urls")),
     path("admin/",admin.site.urls),
 ]
 if settings.DEBUG:
