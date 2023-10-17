@@ -7,6 +7,7 @@ from urllib.parse import urlencode
 # Create your views here.
 class StudentsSort():
     def __init__(self,grade,_class,number):
+        self.grade = grade
         self._class = _class
         self.number = number
     def __lt__(self,other):
