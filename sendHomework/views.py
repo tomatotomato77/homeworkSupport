@@ -21,20 +21,24 @@ def indexView(request):
     if request.method == 'POST':
         form = SendForm(request.POST,request.FILES)
         if form.is_valid():
-            student = Student.objects.get(grade = form.cleaned_data["grade"],
-                                    class_num = form.cleaned_data["class_num"],
-                                    number = form.cleaned_data["number"])
+            try:
+                student = Student.objects.get(grade = form.cleaned_data["grade"],
+                                        class_num = form.cleaned_data["class_num"],
+                                        number = form.cleaned_data["number"])
+            except:
+                print('except')
+                return render(request,'sendWork.html',{'form':form,'comment':'inputed student was not found'})
             file = form.cleaned_data['file']
             homework = Homework(student = student,
                                     file = file)
             homework.save()
-            return render(request,'sendWork.html',{'form':form})
-        return render(request,'sendWork.html',{'form':form})
+            return render(request,'sendWork.html',{'form':form,'comment':''})
+        return render(request,'sendWork.html',{'form':form,'comment':''})
     form = SendForm()
     return render(
         request,
         'sendWork.html',
-        {'form':form})
+        {'form':form,'comment':''})
 class showView(generic.TemplateView):
     template_name = 'showWork.html'
     def get_context_data(self,**kwargs):
