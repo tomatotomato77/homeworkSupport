@@ -19,7 +19,7 @@
         <tr><td>{{result.student.grade}}</td><td>{{result.student.class_num}}</td><td>{{result.student.number}}</td><td>{{result.student.name}}</td><td>{{result.files_count}}</td>
             <td>
             {% for file in result.files%}
-            <a href="{%static file.name%}">{{file.name}}</a>
+            <a href="{{file.root}}">{{file.name}}</a>
             {%endfor%}
             </td>
         </tr>
