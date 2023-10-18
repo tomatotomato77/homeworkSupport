@@ -14,6 +14,8 @@ from pathlib import Path
 import os
 from dj_database_url import parse as dburl
 from django.core.management.utils import get_random_secret_key
+import os
+
 SECRET_KEY = get_random_secret_key()  
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -127,10 +129,10 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME' : 'dzpx0qhgh',
-    'API_KEY' : '826953172659538',
-    'API_SECRET' : 'nInisxOD1aiRcIBlbQn--pHz-ZA',
-    'API_PROXY': 'http://proxy.server:3128',
+    'CLOUD_NAME' : os.getenv("CLOUD_NAME"),
+    'API_KEY' : os.getenv("API_KEY"),
+    'API_SECRET' : os.getenv('API_SECRET'),
+    'API_PROXY': os.getenv('API_PROXY'),
 }
 
 # Default primary key field type
