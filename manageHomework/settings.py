@@ -130,7 +130,6 @@ CLOUDINARY_STORAGE = {
     'CLOUD_NAME' : 'dzpx0qhgh',
     'API_KEY' : '826953172659538',
     'API_SECRET' : 'nInisxOD1aiRcIBlbQn--pHz-ZA',
-    'API_PROXY': 'http://proxy.server:3128',
 }
 SUPERUSER_NAME = os.getenv("SUPERUSER_NAME")
 SUPERUSER_EMAIL = os.getenv("SUPERUSER_EMAIL")
