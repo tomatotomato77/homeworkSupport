@@ -134,6 +134,9 @@ CLOUDINARY_STORAGE = {
     'API_SECRET' : os.getenv('API_SECRET'),
     'API_PROXY': os.getenv('API_PROXY'),
 }
+SUPERUSER_NAME = os.getenv("SUPERUSER_NAME")
+SUPERUSER_EMAIL = os.getenv("SUPERUSER_EMAIL")
+SUPERUSER_PASSWORD = os.getenv("SUPERUSER_PASSWORD")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
