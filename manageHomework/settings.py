@@ -41,8 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django_cleanup',
     'django.contrib.staticfiles',
-    'cloudinary',
-    'cloudinary_storage',
 
 ]
 
@@ -125,12 +123,6 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR,'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME' : 'dzpx0qhgh',
-    'API_KEY' : '826953172659538',
-    'API_SECRET' : 'nInisxOD1aiRcIBlbQn--pHz-ZA',
-}
 SUPERUSER_NAME = os.getenv("SUPERUSER_NAME")
 SUPERUSER_EMAIL = os.getenv("SUPERUSER_EMAIL")
 SUPERUSER_PASSWORD = os.getenv("SUPERUSER_PASSWORD")
